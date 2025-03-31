@@ -6,7 +6,7 @@ services:
     container_name: node-oba-fix # 容器名称设置为 node-oba-fix
     network_mode: "bridge" # 明确使用 Docker 默认的 bridge 网络
     environment: # 设置环境变量
-      - CLUSTER_PORT=4000 # 配置集群端口为 4000
+      - CLUSTER_PORT=4000 # 监听端口
       - TZ=Asia/Shanghai # 设置时区为上海
     ports: # 端口映射
       - "4000:4000" # 将主机的 4000 端口映射到容器的 4000 端口
