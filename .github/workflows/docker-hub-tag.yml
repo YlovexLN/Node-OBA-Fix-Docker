@@ -16,11 +16,12 @@ jobs:
       # 第一步：检出代码
       - uses: actions/checkout@v4
 
-      # 第二步：获取 Zhang12334/Node-OBA-Fix 的最新 release 版本
+      # 第二步：清理缓存并获取 Zhang12334/Node-OBA-Fix 的最新 release 版本
       - name: 获取最新 release 版本
         id: get_release_version
         run: |
-          RELEASE_VERSION=$(curl -s https://api.github.com/repos/Zhang12334/Node-OBA-Fix/releases/latest | jq -r '.tag_name')
+          # 使用 curl 的 -H 参数强制忽略缓存，确保获取最新 release
+          RELEASE_VERSION=$(curl -s -H "Cache-Control: no-cache" https://api.github.com/repos/Zhang12334/Node-OBA-Fix/releases/latest | jq -r '.tag_name')
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
 
       # 第三步：设置 Docker Buildx
@@ -34,7 +35,7 @@ jobs:
           username: ${{ secrets.HUB_USERNAME }}
           password: ${{ secrets.HUB_PASSWORD }}
 
-      # 第五步：构建并推送 Docker 镜像
+      # 第五步：构建并推送 Docker 镜像（不使用缓存）
       - name: 构建并推送
         uses: docker/build-push-action@v5
         with:
@@ -44,5 +45,6 @@ jobs:
             ylovexln/node-oba-fix
             ylovexln/node-oba-fix:${{ env.RELEASE_VERSION }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # 注释掉或移除下面两行来禁用缓存
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
