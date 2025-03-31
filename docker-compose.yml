@@ -2,7 +2,7 @@ version: '3.8' # 指定 Docker Compose 文件版本
 
 services:
   openbmclapi: # 定义服务名称
-    image: ylovexln/node-oba-fix:latest # 使用的镜像
+    image: ylovexln/node-oba-fix # 使用的镜像
     container_name: node-oba-fix # 容器名称设置为 node-oba-fix
     network_mode: "bridge" # 明确使用 Docker 默认的 bridge 网络
     environment: # 设置环境变量
