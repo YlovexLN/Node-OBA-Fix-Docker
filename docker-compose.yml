@@ -1,0 +1,22 @@
+version: '3.8' # 指定 Docker Compose 文件版本
+
+services:
+  openbmclapi: # 定义服务名称
+    image: ylovexln/node-oba-fix:latest # 使用的镜像
+    container_name: node-oba-fix # 容器名称设置为 node-oba-fix
+    network_mode: "bridge" # 明确使用 Docker 默认的 bridge 网络
+    environment: # 设置环境变量
+      - CLUSTER_PORT=4000 # 配置集群端口为 4000
+      - TZ=Asia/Shanghai # 设置时区为上海
+    ports: # 端口映射
+      - "4000:4000" # 将主机的 4000 端口映射到容器的 4000 端口
+    volumes: # 数据卷挂载（持久化数据）
+      - ./cache:/opt/openbmclapi/cache # 挂载缓存目录
+      - ./.env:/opt/openbmclapi/.env  # 挂载环境变量配置文件
+      - ./data:/opt/openbmclapi/data  # 挂载数据目录
+    # unless-stopped 自动重启策略：除非手动停止，否则始终重启容器 
+    # no 不重启 
+    # always 总是重启 
+    # on-failure 失败时重启 
+    # on-failure:5 失败次数超过 5 次时重启
+    restart: unless-stopped
