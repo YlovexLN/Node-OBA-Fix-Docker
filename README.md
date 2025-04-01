@@ -6,9 +6,9 @@
 
 </div>
 
-## 详细使用说明
+## 使用说明
 
-请访问 [Node-OBA-Fix 原仓库](https://github.com/Zhang12334/Node-OBA-Fix) 获取完整的使用文档。
+请访问 [Node-OBA-Fix](https://github.com/Zhang12334/Node-OBA-Fix) 获取完整的使用文档。
 
 ## 开源协议
 
