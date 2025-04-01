@@ -12,4 +12,4 @@
 
 ## 开源协议
 
-本项目基于 MIT 协议开源。
+本项目基于 [MIT 协议](https://github.com/YlovexLN/Node-OBA-Fix-Docker/blob/main/LICENSE) 开源。
