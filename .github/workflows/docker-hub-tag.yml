@@ -20,8 +20,16 @@ jobs:
       - name: 获取最新 release 版本
         id: get_release_version
         run: |
-          # 使用 curl 的 -H 参数强制忽略缓存，确保获取最新 release
-          RELEASE_VERSION=$(curl -s -H "Cache-Control: no-cache" https://api.github.com/repos/Zhang12334/Node-OBA-Fix/releases/latest | jq -r '.tag_name')
+          # 添加时间戳和多个请求头来确保获取最新 release
+          TIMESTAMP=$(date +%s)
+          RELEASE_VERSION=$(curl -s \
+            -H "Cache-Control: no-cache, no-store, must-revalidate" \
+            -H "Pragma: no-cache" \
+            -H "Expires: 0" \
+            -H "If-None-Match: \"\"" \
+            "https://api.github.com/repos/Zhang12334/Node-OBA-Fix/releases/latest?_=${TIMESTAMP}" \
+            | jq -r '.tag_name')
+          echo "获取到的版本: $RELEASE_VERSION"
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
 
       # 第三步：设置 Docker Buildx

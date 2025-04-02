@@ -18,7 +18,8 @@ RUN if [ "$TARGETARCH" = "amd64" ]; then \
     else \
         echo "Unsupported architecture: $TARGETARCH"; exit 1; \
     fi && \
-    curl -L -o Node-OBA-Fix.tar.xz.zip "$ARCH_URL"
+    TIMESTAMP=$(date +%s) && \
+    curl -L -H "Cache-Control: no-cache" -H "If-None-Match: \"\"" -o Node-OBA-Fix.tar.xz.zip "$ARCH_URL?_=$TIMESTAMP"
 
 # 解压文件
 RUN unzip Node-OBA-Fix.tar.xz.zip && \
