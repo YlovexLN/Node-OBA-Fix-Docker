@@ -43,7 +43,20 @@ jobs:
           username: ${{ secrets.HUB_USERNAME }}
           password: ${{ secrets.HUB_PASSWORD }}
 
-      # 第五步：构建并推送 Docker 镜像（不使用缓存）
+      # 第五步：检查版本是否已存在
+      - name: 检查版本是否存在
+        id: check_version
+        run: |
+          # 检查指定版本是否存在
+          VERSION_EXISTS=$(curl -s "https://hub.docker.com/v2/repositories/ylovexln/node-oba-fix/tags/${{ env.RELEASE_VERSION }}" | jq -r '.name')
+          if [ "$VERSION_EXISTS" = "${{ env.RELEASE_VERSION }}" ]; then
+            echo "版本 ${{ env.RELEASE_VERSION }} 已存在，退出工作流"
+            exit 0
+          else
+            echo "版本 ${{ env.RELEASE_VERSION }} 不存在，继续构建"
+          fi
+
+      # 第六步：构建并推送 Docker 镜像（不使用缓存）
       - name: 构建并推送
         uses: docker/build-push-action@v5
         with:
