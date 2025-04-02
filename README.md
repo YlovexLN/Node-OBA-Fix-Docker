@@ -8,6 +8,8 @@
 
 ## 使用说明
 
+请访问 [Docker Hub](https://hub.docker.com/r/ylovexln/node-oba-fix) 获取 Docker 镜像。
+
 请访问 [Node-OBA-Fix](https://github.com/Zhang12334/Node-OBA-Fix) 获取完整的使用文档。
 
 ## 开源协议
