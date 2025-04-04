@@ -42,7 +42,8 @@ RUN apt-get update && \
 COPY --from=builder /opt/openbmclapi/ ./
 
 # 设置环境变量
-ENV CLUSTER_PORT=4000
+ARG CLUSTER_PORT=4000
+ENV CLUSTER_PORT=${CLUSTER_PORT}
 EXPOSE $CLUSTER_PORT
 
 # 定义卷（持久化缓存和配置）
