@@ -49,7 +49,7 @@ ENV CLUSTER_PORT=4000
 EXPOSE $CLUSTER_PORT
 
 # 定义卷（持久化缓存和配置）
-VOLUME ["/opt/openbmclapi/cache", "/opt/openbmclapi/.env", "/opt/openbmclapi/data"]
+VOLUME ["/opt/openbmclapi"]
 
 # 启动脚本
 CMD ["./run.sh"]
