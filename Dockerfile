@@ -41,9 +41,6 @@ RUN apt-get update && \
 # 从构建阶段复制 /opt/openbmclapi 下的内容
 COPY --from=builder /opt/openbmclapi/ ./
 
-# 验证 node 是否可用
-RUN ./node --version || echo "Node.js is not working!"
-
 # 设置环境变量
 ENV CLUSTER_PORT=4000
 EXPOSE $CLUSTER_PORT
